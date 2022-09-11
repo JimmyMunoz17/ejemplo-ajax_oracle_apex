@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Ejercicio AJAX</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script type="text/javascript" src="js/funciones.js"></script>
+    </head>
+    <body>
+        <h1> Tutorial de Ajax!</h1>
+        <!--Creación inicial de ajax-->
+        <div id="resultados"></div>
+        <!--Creación del botón el cual va traer la información-->
+        <button onclick="traerInformacion()">Consultar</button>
+        <div>
+            <input type="number" id="id" placeholder="id">
+            <input type="text" id="name" placeholder="name">
+            <input type="text" id="brand" placeholder="brand">
+            <input type="number" id="model" placeholder="model">
+            <input type="number" id="category" placeholder="category_id">
+        </div>    
+        <button onclick="guardarInformacion()">Guardar!</button>  
+        <button onclick="editarInformacion()">Actualizar</button>    
+
+    </body>
+</html>
