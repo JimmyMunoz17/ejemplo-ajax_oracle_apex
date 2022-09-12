@@ -1,50 +1,36 @@
 function traerInformacion() {
   $.ajax({
     //url dirección del nuestro servidor
-    url: "https://g54e18a710da042-nmwpjfcclbjz0kl8.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/ejemplo/ejemplo/",
-    //tipo de petición GET, POST, DELECT, PUT
-    type: "GET",
+    url:"https://g54e18a710da042-nmwpjfcclbjz0kl8.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/ejemplo/ejemplo/",
+    //tipo de petición GET, POST, DELETE, PUT
+    type:"GET",
     //tipo de dato que esperamos que el sevidor nos entregue
-    dataType: "json",
-    // crossDomain: true,
-    contentType: "application/json",
-    // cache: false,
-    // xhrFields: {
-    //   withCredentials: false,
-    // },
-    // headers: {
-    //   "Access-Control-Allow-Credentials": true,
-    //   "Access-Control-Allow-Origin": "*",
-    //   "Access-Control-Allow-Methods": "GET, POST, PUT,",
-    //   "Access-Control-Allow-Headers": "application/json",
-    // },
+    dataType:"JSON",
     //Función
-    success: function (respuesta) {
+    success:function (respuesta) {
       //Acá se puede validar la respuesta.
       console.log(respuesta);
-      for (i = o; i < respuesta.iteam.length; i++) {
-        $("#resultado").append(respuesta.iteam[i].name + "<br>");
-      }
+      pintarRespuesta(respuesta.items);
+      // for (i=0; i < respuesta.items.length; i++) {
+      //   // $("#resultado").append(respuesta.items[i].name+"<br>");
+      // }
     },
   });
 }
 
-function pintarRespuesta(iteam) {
+function pintarRespuesta(items) {
   let myTable = "<table>";
-  for (i = 0; i < iteam.length; i++) {
+  for (i=0; i < items.length; i++) {
     myTable += "<tr>";
-    myTable += "<td>" + iteam[i].id + "</td>";
-    myTable += "<td>" + iteam[i].name + "</td>";
-    myTable += "<td>" + iteam[i].brand + "</td>";
-    myTable += "<td>" + iteam[i].model + "</td>";
-    myTable +=
-      "<td> <button onclick='borrarElemento(" +
-      items[i].id +
-      ")'>Borrar</button>";
+    myTable += "<td>" + items[i].id + "</td>";
+    myTable += "<td>" + items[i].name + "</td>";
+    myTable += "<td>" + items[i].brand + "</td>";
+    myTable += "<td>" + items[i].model + "</td>";
+    //Botón eliminar
+    myTable += "<td> <button onclick='borrarElemento(" + items[i].id + ")'>Borrar</button>";
     myTable += "<tr>";
   }
-
-  myTable = "</table>";
+  myTable += "</table>";
   $("#resultado").append(myTable);
 }
 
@@ -53,22 +39,22 @@ function guardarInformacion() {
     id: $("#id").val(),
     name: $("#name").val(),
     brand: $("#brand").val(),
-    model: $("model").val(),
+    model: $("#model").val(),
     category_id: $("#category_id").val(),
   };
+
   let dataToSend = JSON.stringify(myData);
 
   $.ajax({
     //url dirección del nuestro servidor
-    url: "https://g54e18a710da042-nmwpjfcclbjz0kl8.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/ejemplo/ejemplo/",
-    //tipo de petición GET, POST, DELECT, PUT
-    type: "POST",
-    //
-    data: myData,
+    url:"https://g54e18a710da042-nmwpjfcclbjz0kl8.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/ejemplo/ejemplo/",
+    //tipo de petición GET, POST, DELETE, PUT
+    type:"POST",
+    data:myData,
     //tipo de dato que esperamos que el sevidor nos entregue
-    dataType: "json",
+    dataType:"JSON",
     //Función
-    success: function (respuesta) {
+    success:function(respuesta) {
       $("#resultado").empty();
       $("#id").val("");
       $("#name").val("");
@@ -76,7 +62,7 @@ function guardarInformacion() {
       $("#model").val("");
       $("#category_id").val("");
       traerInformacion();
-      alert("Se ha guardado");
+      alert("Se ha guardado.")
     },
   });
 }
@@ -95,7 +81,7 @@ function editarInformacion() {
   $.ajax({
     //url dirección del nuestro servidor
     url: "https://g54e18a710da042-nmwpjfcclbjz0kl8.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/ejemplo/ejemplo/",
-    //tipo de petición GET, POST, DELECT, PUT
+    //tipo de petición GET, POST, DELETE, PUT
     type: "PUT",
     //
     data: dataToSend,
