@@ -15,6 +15,8 @@ function traerInformacion() {
       //   // $("#resultado").append(respuesta.items[i].name+"<br>");
       // }
     },
+  }).done(function(){
+    // alert("exito");
   });
 }
 
@@ -40,11 +42,11 @@ function guardarInformacion() {
     name: $("#name").val(),
     brand: $("#brand").val(),
     model: $("#model").val(),
-    category_id: $("#category_id").val(),
+    category_id: $("#category").val()
   };
 
   let dataToSend = JSON.stringify(myData);
-
+  console.log(dataToSend);
   $.ajax({
     //url dirección del nuestro servidor
     url:"https://g54e18a710da042-nmwpjfcclbjz0kl8.adb.sa-saopaulo-1.oraclecloudapps.com/ords/admin/ejemplo/ejemplo/",
@@ -53,19 +55,30 @@ function guardarInformacion() {
     data:myData,
     //tipo de dato que esperamos que el sevidor nos entregue
     dataType:"JSON",
-    //Función
-    success:function(respuesta) {
-      $("#resultado").empty();
-      $("#id").val("");
-      $("#name").val("");
-      $("#brand").val("");
-      $("#model").val("");
-      $("#category_id").val("");
-      traerInformacion();
-      alert("Se ha guardado.")
-    },
+  })
+  .done(function(){
+    alert("se ha guardado");
+  })
+  // .fail( function(request, errorType, errorMessage){
+  //   //TIMEOUT --> PASA MUCHO TIEMPO Y NO HAY RESPUESTA
+  //   //error --> la página no esta disponible errores 500
+  //   //about --> abortado
+  //   //parseerror -->  información json y no de este tipo
+  //   console.log(errorType);
+  //   alert(errorMessage);
+  // })
+  .always(function(){
+    // $('#dato').text('cargando...')
+    $("#resultado").empty();
+    $("#id").val("");
+    $("#name").val("");
+    $("#brand").val("");
+    $("#model").val("");
+    $("#category").val("");
+    traerInformacion();
   });
 }
+
 
 function editarInformacion() {
   let myData = {
